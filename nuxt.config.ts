@@ -5,4 +5,23 @@ export default defineNuxtConfig({
     typeCheck: true,
   },
   ssr: false,
+  // Pinia
+  pinia: {
+    autoImports: [
+      // automatically imports `defineStore`
+      // import { defineStore } from 'pinia'
+      "defineStore",
+      // import { defineStore as definePiniaStore } from 'pinia'
+      ["defineStore", "definePiniaStore"],
+    ],
+  },
+  runtimeConfig: {
+    public: {
+      kkboxGrantType: '',
+      kkboxClientID: '',
+      kkboxClientSecret: '',
+      kkboxAPI: '',
+      corsProxyAPI: '',
+    }
+  }
 });
