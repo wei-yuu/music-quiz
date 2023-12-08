@@ -16,9 +16,12 @@ export default defineNuxtConfig({
     ],
   },
   runtimeConfig: {
-    kkboxGrantType: process.env.KKBOX_GRANT_TYPE,
-    kkboxClientID: process.env.KKBOX_CLIENT_ID,
-    kkboxClientSecret: process.env.KKBOX_CLIENT_SECRET,
-    baseURL: process.env.KKBOX_API
+    public: {
+      kkboxGrantType: '',
+      kkboxClientID: '',
+      kkboxClientSecret: '',
+      kkboxAPI: '',
+      corsProxyAPI: '',
+    }
   }
 });
