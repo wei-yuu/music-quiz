@@ -10,10 +10,14 @@
 </template>
 
 <script lang="ts" setup>
+import { useKkboxAuth } from '@/composables/use-kkbox-auth';
+
 defineProps({
   title: {
     type: String,
     default: 'Music Quiz!',
   },
 });
+
+useKkboxAuth();
 </script>
