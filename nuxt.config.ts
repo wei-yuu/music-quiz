@@ -10,9 +10,9 @@ export default defineNuxtConfig({
     autoImports: [
       // automatically imports `defineStore`
       // import { defineStore } from 'pinia'
-      "defineStore",
+      'defineStore',
       // import { defineStore as definePiniaStore } from 'pinia'
-      ["defineStore", "definePiniaStore"],
+      ['defineStore', 'definePiniaStore'],
     ],
   },
   runtimeConfig: {
@@ -22,6 +22,6 @@ export default defineNuxtConfig({
       kkboxClientSecret: '',
       kkboxAPI: '',
       corsProxyAPI: '',
-    }
-  }
+    },
+  },
 });
