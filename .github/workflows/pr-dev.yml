@@ -4,7 +4,6 @@ on:
   pull_request:
     branches:
       - dev
-    types: [opened, reopened]
 
 jobs:
   build:
@@ -19,10 +18,12 @@ jobs:
         with:
           node-version: '18.17.0'
           path: node_modules
-      - run: npm ci
+
+      - name: Install
+        run: npm ci
 
       - name: Test
-        run: npm eslint && npm test
+        run: npm lint && npm test
       
       - name: Build
         run: npm build
