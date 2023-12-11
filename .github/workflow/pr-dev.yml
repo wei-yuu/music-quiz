@@ -21,9 +21,8 @@ jobs:
           path: node_modules
         run: npm ci
       
-      # - name: Test
-      #   run: npm eslint
-      #   run: npm test
+      - name: Test
+        run: npm eslint && npm test
       
       - name: Build
         run: npm build
