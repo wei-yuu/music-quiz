@@ -14,13 +14,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup node
-        timeout-minute: 60
+        timeout-minutes: 60
         uses: actions/setup-node@v3
         with:
           node-version: '18.17.0'
           path: node_modules
-        run: npm ci
-      
+      - run: npm ci
+
       - name: Test
         run: npm eslint && npm test
       
