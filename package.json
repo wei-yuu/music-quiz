@@ -8,6 +8,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
+    "lint": "eslint .",
     "test": "jest tests",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
