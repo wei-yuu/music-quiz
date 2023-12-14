@@ -1,0 +1,29 @@
+name: pull-request-dev
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        timeout-minutes: 60
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.17.0'
+          path: node_modules
+
+      - name: Install
+        run: npm ci
+
+      - name: Test
+        run: npm run lint # && npm run test
+      
+      - name: Build
+        run: npm run build
