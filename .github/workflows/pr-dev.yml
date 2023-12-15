@@ -28,24 +28,22 @@ jobs:
       - name: Build
         run: npm run build
 
-  on-success:
+  notify:
     needs: build
     runs-on: ubuntu-latest
-    if: success()
     steps:
-      - uses: snow-actions/line-notify@v1.1.0
+      - name: Success
+        if: success()
+        uses: snow-actions/line-notify@v1.1.0
         with:
           access_token: ${{ secrets.LINE_ACCESS_TOKEN }}
           message: |
             The "Dev Pull Request" passed.
             ${{ github.event.pull_request.html_url }}
-  
-  on-failure:
-    needs: build
-    runs-on: ubuntu-latest
-    if: failure()
-    steps:
-      - uses: snow-actions/line-notify@v1.1.0
+      
+      - name: Failed
+        if: failure()
+        uses: snow-actions/line-notify@v1.1.0
         with:
           access_token: ${{ secrets.LINE_ACCESS_TOKEN }}
           message: |
