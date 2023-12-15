@@ -31,7 +31,7 @@ jobs:
   on-success:
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ github.action_status == 'success' }}
+    if: ${{ github.job.status == 'success' }}
     steps:
       - uses: snow-actions/line-notify@v1.1.0
         with:
@@ -39,8 +39,9 @@ jobs:
           message: The ${{ github.action.workflows.name }} workflow passed.
   
   on-failure:
+    needs: build
     runs-on: ubuntu-latest
-    if: ${{ github.action_status == 'failure' }}
+    if: ${{ github.job.status == 'failure' }}
     steps:
       - uses: snow-actions/line-notify@v1.1.0
         with:
