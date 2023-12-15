@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.17.0'
-          path: node_modules
+          # path: node_modules
 
       - name: Install
         run: npm ci
@@ -27,3 +27,22 @@ jobs:
       
       - name: Build
         run: npm run build
+
+  on-success:
+    needs: build
+    runs-on: ubuntu-latest
+    if: ${{ github.action_status == 'success' }}
+    steps:
+      - uses: snow-actions/line-notify@v1.1.0
+        with:
+          access_token: ${{ secrets.LINE_ACCESS_TOKEN }}
+          message: The ${{ github.action.workflows.name }} workflow passed.
+  
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.action_status == 'failure' }}
+    steps:
+      - uses: snow-actions/line-notify@v1.1.0
+        with:
+          access_token: ${{ secrets.LINE_ACCESS_TOKEN }}
+          message: The ${{ github.action.workflows.name }} workflow failed.
