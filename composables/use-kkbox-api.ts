@@ -1,7 +1,6 @@
 import type { UseFetchOptions } from "nuxt/app";
 import { useAuthStore } from "@/store/use-auth.store";
 
-const { accessToken, tokenType } = useAuthStore();
 const {
   public: {
     corsProxyAPI,
@@ -13,6 +12,8 @@ export const useKkboxApi = <ResT>(
   path: string,
   options?: UseFetchOptions<ResT>
 ) => {
+  const { accessToken, tokenType } = useAuthStore();
+
   const loading = ref(false);
   const error = ref();
   const fetch = async () => {
