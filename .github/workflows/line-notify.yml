@@ -2,6 +2,8 @@ name: Line Notify
 
 on: 
   workflow_run:
+    branches:
+      - dev
     workflows: [Dev Pull Request]
     types: [completed]
 
