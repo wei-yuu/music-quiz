@@ -5,7 +5,9 @@ on:
     workflows: [Dev Pull Request]
     types: [completed]
     branches:
-      - dev
+      - feature-*
+      - bugfix-*
+      - fix-*
 
 jobs:
   on-success:
