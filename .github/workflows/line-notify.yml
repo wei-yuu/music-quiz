@@ -1,0 +1,24 @@
+name: Line Notify
+
+on: 
+  workflow_run:
+    workflows: [Dev Pull Request]
+    types: [completed]
+
+jobs:
+  on-success:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - uses: snow-actions/line-notify@v1.1.0
+        with:
+          access_token: ${{ secrets.LINE_ACCESS_TOKEN }}
+          message: The ${{ github.action.workflows.name }} workflow passed.
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - uses: snow-actions/line-notify@v1.1.0
+        with:
+          access_token: ${{ secrets.LINE_ACCESS_TOKEN }}
+          message: The ${{ github.action.workflows.name }} workflow failed.
