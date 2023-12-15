@@ -1,4 +1,4 @@
-name: pull-request-dev
+name: Dev Pull Request
 
 on:
   pull_request:
@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.17.0'
-          path: node_modules
+          # path: node_modules
 
       - name: Install
         run: npm ci
@@ -27,3 +27,25 @@ jobs:
       
       - name: Build
         run: npm run build
+
+  notify:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Success
+        if: success()
+        uses: snow-actions/line-notify@v1.1.0
+        with:
+          access_token: ${{ secrets.LINE_ACCESS_TOKEN }}
+          message: |
+            The "Dev Pull Request" passed.
+            ${{ github.event.pull_request.html_url }}
+      
+      - name: Failed
+        if: failure()
+        uses: snow-actions/line-notify@v1.1.0
+        with:
+          access_token: ${{ secrets.LINE_ACCESS_TOKEN }}
+          message: |
+            The "Dev Pull Request" failed.
+            ${{ github.event.pull_request.html_url }}
