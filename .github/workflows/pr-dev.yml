@@ -31,7 +31,7 @@ jobs:
   on-success:
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ github.job.status == 'success' }}
+    if: success()
     steps:
       - uses: snow-actions/line-notify@v1.1.0
         with:
@@ -41,7 +41,7 @@ jobs:
   on-failure:
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ github.job.status == 'failure' }}
+    if: failure()
     steps:
       - uses: snow-actions/line-notify@v1.1.0
         with:
