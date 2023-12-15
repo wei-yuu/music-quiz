@@ -36,7 +36,9 @@ jobs:
       - uses: snow-actions/line-notify@v1.1.0
         with:
           access_token: ${{ secrets.LINE_ACCESS_TOKEN }}
-          message: The ${{ github.action.workflows.name }} workflow passed.
+          message: |
+            The "Dev Pull Request" passed.
+            ${{ github.event.pull_request.html_url }}
   
   on-failure:
     needs: build
@@ -46,4 +48,6 @@ jobs:
       - uses: snow-actions/line-notify@v1.1.0
         with:
           access_token: ${{ secrets.LINE_ACCESS_TOKEN }}
-          message: The ${{ github.action.workflows.name }} workflow failed.
+          message: |
+            The "Dev Pull Request" failed.
+            ${{ github.event.pull_request.html_url }}
