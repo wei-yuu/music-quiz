@@ -12,7 +12,7 @@ export const useKkboxApi = <ReqT extends {}, ResT>(
   path: string,
   options?: UseFetchOptions<ResT>
 ) => {
-  const { accessToken, tokenType, setAuthData } = useAuthStore();
+  const authStore = useAuthStore();
 
   const loading = ref(false);
   const error = ref();
@@ -21,14 +21,14 @@ export const useKkboxApi = <ReqT extends {}, ResT>(
     try {
       if (!path) return;
 
-      if (!accessToken) {
-        await setAuthData();
+      if (!authStore.accessToken) {
+        await authStore.setAuthData();
       }
 
       const fetchOptions = {
         baseURL: `${corsProxyAPI}${kkboxAPI}`,
         headers: {
-          Authorization: `${tokenType} ${accessToken}`
+          Authorization: `${authStore.tokenType} ${authStore.accessToken}`
         },
         ...options
       };
