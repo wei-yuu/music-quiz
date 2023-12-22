@@ -1,4 +1,4 @@
-import type { UseFetchOptions } from "nuxt/app";
+import type { UseFetchOptions } from 'nuxt/app';
 import { useAuthStore } from "@/store/use-auth.store";
 
 const {
@@ -8,28 +8,43 @@ const {
   }
 } = useRuntimeConfig();
 
-export const useKkboxApi = <ResT>(
+export const useKkboxApi = <ReqT extends {}, ResT>(
   path: string,
   options?: UseFetchOptions<ResT>
 ) => {
-  const { accessToken, tokenType } = useAuthStore();
+  const { accessToken, tokenType, setAuthData } = useAuthStore();
 
   const loading = ref(false);
   const error = ref();
-  const fetch = async () => {
+  const fetch = async (payload: ReqT) => {
     loading.value = true;
     try {
       if (!path) return;
 
-      return await Promise.resolve(
-        useFetch(path, {
-          baseURL: `${corsProxyAPI}${kkboxAPI}`,
-          headers: {
-            Authorization: `${tokenType} ${accessToken}`
-          },
-          ...options
-        }),
-      );
+      if (!accessToken) {
+        await setAuthData();
+      }
+
+      const fetchOptions = {
+        baseURL: `${corsProxyAPI}${kkboxAPI}`,
+        headers: {
+          Authorization: `${tokenType} ${accessToken}`
+        },
+        ...options
+      };
+      
+      switch (options?.method) {
+        case 'GET':
+        case 'get':
+          fetchOptions.query = payload;
+          break;
+        case 'POST':
+        case 'post':
+          fetchOptions.body = payload;
+          break;
+      }
+
+      return await Promise.resolve(useFetch(path, fetchOptions));
     } catch (e) {
       error.value = e;
       throw e;
