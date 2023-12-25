@@ -3,25 +3,43 @@ export enum Territory {
   Japan = 'JP',
   Malaysia = 'MY',
   Singapore = 'SG',
-  Taiwan = 'TW'
-};
+  Taiwan = 'TW',
+}
 
 export interface Paging {
   offset: number;
   limit: number;
   previous: string;
   next: string;
-};
+}
 
 export interface Summary {
   total: number;
-};
+}
 
 export interface Image {
   height: number;
   width: number;
   url: string;
-};
+}
+
+export interface Artist {
+  id: string;
+  name: string;
+  url: string;
+  images: Image[];
+}
+
+export interface Album {
+  id: string;
+  name: string;
+  url: string;
+  explicitness: boolean;
+  available_territories: Territory;
+  images: Image[];
+  release_date?: string;
+  artist: Artist;
+}
 
 export interface Track {
   id: string;
@@ -33,25 +51,16 @@ export interface Track {
   explicitness: boolean;
   available_territories: Territory;
   album: Album;
-};
+}
 
-export interface Album {
+export interface Owner {
   id: string;
   name: string;
+  description: string;
   url: string;
-  explicitness: boolean;
-  available_territories: Territory;
-  images: Image[],
-  release_date?: string;
-  artist: Artist;
-};
-
-export interface Artist {
-  id: string;
-  name: string;
-  url: string;
-  images: Image[]
-};
+  images: Image[];
+  updated_at: Date;
+}
 
 export interface Playlist {
   id: string;
@@ -66,13 +75,4 @@ export interface Playlist {
   };
   owner: Owner;
   updated_at: Date;
-};
-
-export interface Owner {
-  id: string;
-  name: string;
-  description: string;
-  url: string;
-  images: Image[];
-  updated_at: Date;
-};
+}

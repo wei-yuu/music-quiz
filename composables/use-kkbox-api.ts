@@ -1,17 +1,11 @@
 import type { UseFetchOptions } from 'nuxt/app';
-import { useAuthStore } from "@/store/use-auth.store";
+import { useAuthStore } from '@/store/use-auth.store';
 
 const {
-  public: {
-    corsProxyAPI,
-    kkboxAPI,
-  }
+  public: { corsProxyAPI, kkboxAPI },
 } = useRuntimeConfig();
 
-export const useKkboxApi = <ReqT extends {}, ResT>(
-  path: string,
-  options?: UseFetchOptions<ResT>
-) => {
+export const useKkboxApi = <ReqT extends {}, ResT>(path: string, options?: UseFetchOptions<ResT>) => {
   const authStore = useAuthStore();
 
   const loading = ref(false);
@@ -28,11 +22,11 @@ export const useKkboxApi = <ReqT extends {}, ResT>(
       const fetchOptions = {
         baseURL: `${corsProxyAPI}${kkboxAPI}`,
         headers: {
-          Authorization: `${authStore.tokenType} ${authStore.accessToken}`
+          Authorization: `${authStore.tokenType} ${authStore.accessToken}`,
         },
-        ...options
+        ...options,
       };
-      
+
       switch (options?.method) {
         case 'GET':
         case 'get':
@@ -51,10 +45,10 @@ export const useKkboxApi = <ReqT extends {}, ResT>(
     } finally {
       loading.value = false;
     }
-  }; 
+  };
   return {
     loading: readonly(loading),
     error: readonly(error),
-    fetch
+    fetch,
   };
 };

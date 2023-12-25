@@ -14,9 +14,9 @@ export interface SearchRequest {
 
   /**
    * Two-letter country codes from ISO 3166-1 alpha-2, Allowed: HK, JP, MY, SG, TW
-   * 
+   *
    * Since an album may has different names and cover images when it is released in different territories, we need a territory code to help you to present the album for the territory that you desire.
-   * 
+   *
    * It applies on tracks, artists, and playlists, too.
    */
   territory: Territory;
@@ -35,7 +35,7 @@ export interface SearchRequest {
    * Show only authorized result
    */
   availability?: boolean;
-};
+}
 
 export interface SearchResponse {
   tracks?: {
@@ -60,4 +60,4 @@ export interface SearchResponse {
   };
   paging: Paging;
   summary: Summary;
-};
+}
