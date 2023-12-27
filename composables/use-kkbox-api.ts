@@ -5,7 +5,10 @@ const {
   public: { corsProxyAPI, kkboxAPI },
 } = useRuntimeConfig();
 
-export const useKkboxApi = <ReqT extends {}, ResT>(path: string, options?: UseFetchOptions<ResT>) => {
+export const useKkboxApi = <ReqT extends {}, ResT>(
+  path: string,
+  options?: UseFetchOptions<ResT>,
+) => {
   const authStore = useAuthStore();
 
   const loading = ref(false);

@@ -10,10 +10,13 @@ export const useKkboxAuth = async () => {
   formData.append('client_id', kkboxClientID);
   formData.append('client_secret', kkboxClientSecret);
 
-  const { data, error } = await useFetch<AuthResponse>(`${corsProxyAPI}https://account.kkbox.com/oauth2/token`, {
-    method: 'POST',
-    body: formData,
-  });
+  const { data, error } = await useFetch<AuthResponse>(
+    `${corsProxyAPI}https://account.kkbox.com/oauth2/token`,
+    {
+      method: 'POST',
+      body: formData,
+    },
+  );
 
   return {
     data: data.value,
