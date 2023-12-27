@@ -9,8 +9,8 @@ export enum Territory {
 export interface Paging {
   offset: number;
   limit: number;
-  previous: string;
-  next: string;
+  previous: string | null;
+  next: string | null;
 }
 
 export interface Summary {
