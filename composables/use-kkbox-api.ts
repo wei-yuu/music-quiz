@@ -13,7 +13,7 @@ export const useKkboxApi = <ReqT extends {}, ResT>(
 
   const loading = ref(false);
   const error = ref();
-  const fetch = async (payload: ReqT) => {
+  const fetch = async (payload: ReqT, dynamicPath?: string) => {
     loading.value = true;
     try {
       if (!path) return;
@@ -41,7 +41,9 @@ export const useKkboxApi = <ReqT extends {}, ResT>(
           break;
       }
 
-      return await Promise.resolve(useFetch(path, fetchOptions));
+      return await Promise.resolve(
+        useFetch(`${path}${dynamicPath ?? ''}`, fetchOptions),
+      );
     } catch (e) {
       error.value = e;
       throw e;
