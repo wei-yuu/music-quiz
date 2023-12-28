@@ -3,7 +3,7 @@ import {
   type CategoriesData,
   type CategoriesRequest,
   Territory,
-} from '@/types/store/categories.type';
+} from '@/types/store/categories/categories.type';
 
 export const useCategoriesStore = definePiniaStore('categories', () => {
   // state
