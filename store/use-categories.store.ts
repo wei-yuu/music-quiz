@@ -5,39 +5,46 @@ import {
   Territory,
 } from '@/types/store/categories.type';
 
-export const useCategoriesStore = definePiniaStore('categories', {
-  state: (): CategoriesData => {
-    return {
-      categories: undefined,
-      paging: undefined,
-      summary: undefined,
-    };
-  },
-  actions: {
-    async setCategoriesData(args?: Partial<CategoriesRequest>) {
-      const { error, fetch: getCategories } = useCategories();
+export const useCategoriesStore = definePiniaStore('categories', () => {
+  // state
+  const categories = ref<CategoriesData['categories']>();
+  const paging = ref<CategoriesData['paging']>();
+  const summary = ref<CategoriesData['summary']>();
 
-      const res = await getCategories({
-        territory: args?.territory || Territory.Taiwan,
-        offset: args?.offset,
-        limit: args?.limit,
-      });
+  // actions
+  async function setCategoriesData(args?: Partial<CategoriesRequest>) {
+    const { error, fetch: getCategories } = useCategories();
 
-      if (res) {
-        const { data, error } = res;
+    const res = await getCategories({
+      territory: args?.territory || Territory.Taiwan,
+      offset: args?.offset,
+      limit: args?.limit,
+    });
 
-        if (data.value) {
-          this.categories = data.value?.data;
-          this.paging = data.value?.paging;
-          this.summary = data.value?.summary;
-        }
+    if (res) {
+      const { data, error } = res;
 
-        if (error.value) {
-          throw error.value;
-        }
-      } else {
-        throw error;
+      if (data.value) {
+        categories.value = data.value?.data;
+        paging.value = data.value?.paging;
+        summary.value = data.value?.summary;
       }
-    },
-  },
+
+      if (error.value) {
+        throw error.value;
+      }
+    } else {
+      throw error;
+    }
+  }
+
+  // init
+  setCategoriesData();
+
+  return {
+    categories,
+    paging,
+    summary,
+    setCategoriesData,
+  };
 });
