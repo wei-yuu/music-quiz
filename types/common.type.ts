@@ -76,3 +76,15 @@ export interface Playlist {
   owner: Owner;
   updated_at: Date;
 }
+
+export interface Category {
+  id: string;
+  title: string;
+  images: Image[];
+  playlists?: {
+    greeting: string;
+    data: Playlist[];
+    paging: Paging;
+    summary: Summary;
+  };
+}
