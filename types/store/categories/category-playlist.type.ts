@@ -8,7 +8,10 @@ export type CategoryPlaylistData = Partial<
     Omit<CategoryPlaylistKkboxResponse, 'data'>
 >;
 
-export type CategoryPlaylistRequest = CategoryPlaylistKkboxRequest & {
+export type CategoryPlaylistRequest = Omit<
+  CategoryPlaylistKkboxRequest,
+  'category_id'
+> & {
   categoryID: string;
 };
 

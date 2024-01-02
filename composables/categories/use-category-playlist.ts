@@ -7,7 +7,7 @@ export const useCategoryPlaylist = () => {
   const { loading, error, fetch } = useKkboxApi<
     CategoryPlaylistKkboxRequest,
     CategoryPlaylistKkboxResponse
-  >('/featured-playlist-categories', {
+  >('/featured-playlist-categories/{category_id}/playlists', {
     method: 'GET',
   });
 
