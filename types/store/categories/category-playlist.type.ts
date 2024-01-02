@@ -8,13 +8,12 @@ export type CategoryPlaylistData = Partial<
     Omit<CategoryPlaylistKkboxResponse, 'data'>
 >;
 
-export type CategoryPlaylistRequest = Omit<
-  CategoryPlaylistKkboxRequest,
-  'category_id'
+export type CategoryPlaylistRequest = Partial<
+  Omit<CategoryPlaylistKkboxRequest, 'category_id'>
 > & {
   categoryID: string;
 };
 
 // export type CategoryPlaylistResponse = CategoryPlaylistKkboxResponse;
 
-export * from '@/types/composables/common.type';
+export * from '@/types/common.type';
