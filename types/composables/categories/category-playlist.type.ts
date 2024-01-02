@@ -3,7 +3,7 @@ import {
   type Playlist,
   type Summary,
   Territory,
-} from '@/types/composables/common.type';
+} from '@/types/common.type';
 
 export interface CategoryPlaylistKkboxRequest {
   category_id: string;

@@ -5,5 +5,5 @@ export type CategoriesData = Partial<
     Omit<CategoriesResponse, 'data'>
 >;
 
-export * from '@/types/composables/common.type';
+export * from '@/types/common.type';
 export * from '@/types/composables/categories/categories.type';

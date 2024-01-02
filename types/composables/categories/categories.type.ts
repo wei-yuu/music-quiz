@@ -1,10 +1,5 @@
-import { Territory } from '@/types/composables/common.type';
-import type {
-  Image,
-  Paging,
-  Playlist,
-  Summary,
-} from '@/types/composables/common.type';
+import { Territory } from '@/types/common.type';
+import type { Image, Paging, Playlist, Summary } from '@/types/common.type';
 
 export interface CategoriesRequest {
   territory: Territory;
