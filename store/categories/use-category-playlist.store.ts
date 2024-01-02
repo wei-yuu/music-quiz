@@ -18,14 +18,12 @@ export const useCategoryPlaylistStore = definePiniaStore(
       const { error, fetch: getCategoryPlaylist } = useCategoryPlaylist();
 
       if (args.categoryID) {
-        const res = await getCategoryPlaylist(
-          {
-            territory: args.territory || Territory.Taiwan,
-            offset: args.offset,
-            limit: args.limit,
-          },
-          `/${args.categoryID}/playlists`,
-        );
+        const res = await getCategoryPlaylist({
+          category_id: args.categoryID,
+          territory: args.territory || Territory.Taiwan,
+          offset: args.offset,
+          limit: args.limit,
+        });
 
         if (res) {
           const { data, error: fetchError } = res;

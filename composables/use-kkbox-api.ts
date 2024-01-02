@@ -5,7 +5,7 @@ const {
   public: { corsProxyAPI, kkboxAPI },
 } = useRuntimeConfig();
 
-export const useKkboxApi = <ReqT extends {}, ResT>(
+export const useKkboxApi = <ReqT extends { [key: string]: any }, ResT>(
   path: string,
   options?: UseFetchOptions<ResT>,
 ) => {
@@ -13,13 +13,24 @@ export const useKkboxApi = <ReqT extends {}, ResT>(
 
   const loading = ref(false);
   const error = ref();
-  const fetch = async (payload: ReqT, dynamicPath?: string) => {
+  const fetch = async (payload: ReqT) => {
     loading.value = true;
     try {
       if (!path) return;
 
       if (!authStore.accessToken) {
         await authStore.setAuthData();
+      }
+
+      const regex = new RegExp('{[^}]*}', 'g');
+
+      if (regex.test(path)) {
+        path.match(regex)?.forEach((param) => {
+          const p = param.substring(1, param.length - 1);
+          path = path.replace(`{${p}}`, payload[p]);
+
+          delete payload[p];
+        });
       }
 
       const fetchOptions = {
@@ -41,9 +52,7 @@ export const useKkboxApi = <ReqT extends {}, ResT>(
           break;
       }
 
-      return await Promise.resolve(
-        useFetch(`${path}${dynamicPath ?? ''}`, fetchOptions),
-      );
+      return await Promise.resolve(useFetch(path, fetchOptions));
     } catch (e) {
       error.value = e;
       throw e;

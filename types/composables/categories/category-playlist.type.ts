@@ -6,6 +6,7 @@ import {
 } from '@/types/composables/common.type';
 
 export interface CategoryPlaylistKkboxRequest {
+  category_id: string;
   territory: Territory;
   offset?: number;
   limit?: number;
