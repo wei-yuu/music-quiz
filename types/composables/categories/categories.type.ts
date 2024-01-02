@@ -1,22 +1,10 @@
 import { Territory } from '@/types/common.type';
-import type { Image, Paging, Playlist, Summary } from '@/types/common.type';
+import type { Category, Paging, Summary } from '@/types/common.type';
 
 export interface CategoriesRequest {
   territory: Territory;
   offset?: number;
   limit?: number;
-}
-
-export interface Category {
-  id: string;
-  title: string;
-  images: Image[];
-  playlists?: {
-    greeting: string;
-    data: Playlist[];
-    paging: Paging;
-    summary: Summary;
-  };
 }
 
 export interface CategoriesResponse {
