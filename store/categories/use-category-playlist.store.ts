@@ -9,15 +9,24 @@ export const useCategoryPlaylistStore = definePiniaStore(
   'categoryPlaylist',
   () => {
     // state
+    const categoryID = ref<string>('');
     const categoryPlaylist = ref<CategoryPlaylistData['categoryPlaylist']>();
     const paging = ref<CategoryPlaylistData['paging']>();
     const summary = ref<CategoryPlaylistData['summary']>();
+    const { loading } = useCategoryPlaylist();
+
+    // getters
+    const isDifferentCategory = computed(() => {
+      return (id: string) => id !== categoryID.value;
+    });
 
     // actions
     async function setCategoryPlaylist(args: CategoryPlaylistRequest) {
       const { error, fetch: getCategoryPlaylist } = useCategoryPlaylist();
 
       if (args.categoryID) {
+        categoryID.value = args.categoryID;
+
         const res = await getCategoryPlaylist({
           category_id: args.categoryID,
           territory: args.territory || Territory.Taiwan,
@@ -46,9 +55,12 @@ export const useCategoryPlaylistStore = definePiniaStore(
     }
 
     return {
+      categoryID,
       categoryPlaylist,
+      loading,
       paging,
       summary,
+      isDifferentCategory,
       setCategoryPlaylist,
     };
   },
