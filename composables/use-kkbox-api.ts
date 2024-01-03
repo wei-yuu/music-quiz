@@ -11,8 +11,8 @@ export const useKkboxApi = <ReqT extends { [key: string]: any }, ResT>(
 ) => {
   const authStore = useAuthStore();
 
-  const loading = ref(false);
-  const error = ref();
+  const loading = useState('loading', () => false);
+  const error = useState('error');
   const fetch = async (payload: ReqT) => {
     loading.value = true;
     try {
