@@ -10,6 +10,7 @@ export const useCategoriesStore = definePiniaStore('categories', () => {
   const categories = ref<CategoriesData['categories']>();
   const paging = ref<CategoriesData['paging']>();
   const summary = ref<CategoriesData['summary']>();
+  const { loading } = useCategories();
 
   // actions
   async function setCategoriesData(args?: Partial<CategoriesRequest>) {
@@ -22,7 +23,7 @@ export const useCategoriesStore = definePiniaStore('categories', () => {
     });
 
     if (res) {
-      const { data, error } = res;
+      const { data, error: fetchError } = res;
 
       if (data.value) {
         categories.value = data.value?.data;
@@ -30,8 +31,8 @@ export const useCategoriesStore = definePiniaStore('categories', () => {
         summary.value = data.value?.summary;
       }
 
-      if (error.value) {
-        throw error.value;
+      if (fetchError.value) {
+        throw fetchError.value;
       }
     } else {
       throw error;
@@ -43,6 +44,7 @@ export const useCategoriesStore = definePiniaStore('categories', () => {
 
   return {
     categories,
+    loading,
     paging,
     summary,
     setCategoriesData,
