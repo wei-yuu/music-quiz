@@ -1,5 +1,12 @@
 <template>
-  <div class="m-auto box-border w-[60vw] p-[12px]">
+  <div
+    :class="[
+      'm-auto box-border w-[60vw] p-[12px]',
+      {
+        'min-h-[70vh] animate-pulse bg-gray-200': loading,
+      },
+    ]"
+  >
     <ul class="flex w-full flex-wrap items-center justify-evenly gap-[24px]">
       <li v-for="(option, index) in options" :key="index">
         <a
@@ -39,6 +46,7 @@ const emits = defineEmits<{
 }>();
 
 defineProps<{
+  loading: boolean;
   options?: Category[] | Playlist[];
 }>();
 </script>
