@@ -1,6 +1,6 @@
 <template>
   <NuxtLayout name="categories" title="選擇遊玩的播放清單">
-    <selector :loading="loading" :options="playlist" @selected="" />
+    <selector :loading="loading" :options="playlist" />
   </NuxtLayout>
 </template>
 

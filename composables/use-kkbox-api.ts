@@ -22,7 +22,7 @@ export const useKkboxApi = <ReqT extends { [key: string]: any }, ResT>(
         await authStore.setAuthData();
       }
 
-      const regex = new RegExp('{[^}]*}', 'g');
+      const regex = /{[^}]*}/g;
 
       if (regex.test(path)) {
         path.match(regex)?.forEach((param) => {
