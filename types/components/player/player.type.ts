@@ -1,7 +1,7 @@
-import { Territory } from '@/types/composables/common.type';
+import { Territory } from '@/types/common.type';
 
 export interface PlayerProps {
-  id?: string;
+  id: string;
   type?: string;
   territory?: Territory;
   lang?: string;
@@ -9,4 +9,4 @@ export interface PlayerProps {
   loop?: boolean;
 }
 
-export * from '@/types/composables/common.type';
+export * from '@/types/common.type';

@@ -1,10 +1,9 @@
 <template>
-  <div class="box-border w-[50vw] p-[12px]">
-    <iframe
-      :src="`https://widget.kkbox.com/v1/?id=${id}&type=${type}&terr=${territory}&lang=${lang}&autoplay=${autoplay}&loop=${loop}`"
-      allow="autoplay"
-    ></iframe>
-  </div>
+  <iframe
+    class="hidden"
+    :src="`https://widget.kkbox.com/v1/?id=${id}&type=${type}&terr=${territory}&lang=${lang}&autoplay=${autoplay}&loop=${loop}`"
+    allow="autoplay"
+  />
 </template>
 
 <script setup lang="ts">
@@ -19,6 +18,6 @@ withDefaults(defineProps<PlayerProps>(), {
   territory: Territory.Taiwan,
   lang: 'EN',
   autoplay: true,
-  loop: false,
+  loop: true,
 });
 </script>
