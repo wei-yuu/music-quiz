@@ -1,5 +1,12 @@
-import { Territory } from '@/types/composables/common.type';
-import type { Track, Album, Artist, Playlist, Summary, Paging } from '@/types/composables/common.type';
+import { Territory } from '@/types/common.type';
+import type {
+  Track,
+  Album,
+  Artist,
+  Playlist,
+  Summary,
+  Paging,
+} from '@/types/common.type';
 
 export interface SearchRequest {
   /**

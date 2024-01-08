@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true,
   },
+  css: ['material-symbols/rounded.css'],
   ssr: false,
   // Pinia
   pinia: {
