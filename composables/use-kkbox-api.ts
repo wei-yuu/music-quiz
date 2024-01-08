@@ -5,14 +5,14 @@ const {
   public: { corsProxyAPI, kkboxAPI },
 } = useRuntimeConfig();
 
-export const useKkboxApi = <ReqT extends {}, ResT>(
+export const useKkboxApi = <ReqT extends { [key: string]: any }, ResT>(
   path: string,
   options?: UseFetchOptions<ResT>,
 ) => {
   const authStore = useAuthStore();
 
-  const loading = ref(false);
-  const error = ref();
+  const loading = useState('loading', () => false);
+  const error = useState('error');
   const fetch = async (payload: ReqT) => {
     loading.value = true;
     try {
@@ -20,6 +20,17 @@ export const useKkboxApi = <ReqT extends {}, ResT>(
 
       if (!authStore.accessToken) {
         await authStore.setAuthData();
+      }
+
+      const regex = /{[^}]*}/g;
+
+      if (regex.test(path)) {
+        path.match(regex)?.forEach((param) => {
+          const p = param.substring(1, param.length - 1);
+          path = path.replace(`{${p}}`, payload[p]);
+
+          delete payload[p];
+        });
       }
 
       const fetchOptions = {
